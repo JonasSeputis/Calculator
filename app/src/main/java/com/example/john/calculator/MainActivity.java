@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     EditText editText;
 
     public String sign = "";
-    public String total = "";
     public Double mathDouble, mathDouble2;
 
     static final ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
@@ -41,13 +40,44 @@ public class MainActivity extends AppCompatActivity {
 
     //Buttons 0-9
     @OnClick({R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7, R.id.button8,
-            R.id.button9, R.id.buttonDot})
+            R.id.button9, R.id.buttonDot/*, R.id.buttonPlus, R.id.buttonSubtraction, R.id.buttonDivision, R.id.buttonMultiplication*/})
     void inputValue(Button button) {
         editText.append(button.getText());
+        //sign = button.getText().toString();
+
+        //String firstValue = editText.getText().toString().substring(0, editText.getText().toString().indexOf("+"));
+       // String secondValue = editText.getText().toString().substring(editText.getText().toString().indexOf("+") + 1, editText.getText().toString().indexOf("="));
     }
 
+    @OnClick({R.id.buttonPlus, R.id.buttonSubtraction, R.id.buttonDivision, R.id.buttonMultiplication})
+    void inputSign(Button button){
+        sign = button.getText().toString();
+        editText.append(sign);
+    }
+    public Double FirstValue(){
+        String writtenText = editText.getText().toString();
+        String firstValue = writtenText.substring(0, writtenText.indexOf(sign));
 
-    @OnClick(R.id.buttonMultiplication)
+        return mathDouble = Double.parseDouble(firstValue);
+    }
+
+    Double SecondValue(){
+        //String firstValue = editText.getText().toString().substring(0, editText.getText().toString().indexOf("+"));
+        String writtenText = editText.getText().toString();
+        String secondValue = writtenText.substring(writtenText.indexOf(sign) + 1, writtenText.charAt(writtenText.length() - 1));
+        return mathDouble2 = Double.parseDouble(secondValue);
+    }
+    /*String firstValue = editText.getText().toString().substring(0, editText.getText().toString().indexOf("+"));
+    String secondValue = editText.getText().toString().substring(editText.getText().toString().indexOf("+") + 1, editText.getText().toString().indexOf("="));*/
+
+
+    //Signs +, -, /, *
+    /*@OnClick({R.id.buttonPlus, R.id.buttonSubtraction, R.id.buttonDivision, R.id.buttonMultiplication})
+    void inputSign(Button button) {
+        mathDouble = Double.parseDouble(editText.getText().toString());
+        sign = button.getText().toString(); }*/
+
+    /*@OnClick(R.id.buttonMultiplication)
     void Multiply() {
         mathDouble = Double.parseDouble(editText.getText().toString());
         editText.setText("");
@@ -73,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         mathDouble = Double.parseDouble(editText.getText().toString());
         editText.setText("");
         sign = "+";
-    }
+    }*/
 
     //Buttons Equal, CE and C
     @OnClick(R.id.buttonC)
@@ -90,11 +120,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.buttonEqual)
+    void Equal(Button button) {
+        editText.append(button.getText());
+       // Double secondNumber = Double.parseDouble(secondValue);
+        editText.setText(Double.toString(mathDouble + mathDouble2));
+    }
+    /*@OnClick(R.id.buttonEqual)
     void Equal() {
         mathDouble2 = Double.parseDouble(editText.getText().toString());
 
         if (sign == "+") {
-            editText.setText(Double.toString(mathDouble + mathDouble2));
+            editText.setText(Double.toString(decimel + decimel));
         } else if (sign == "-") {
             editText.setText(Double.toString(mathDouble - mathDouble2));
         } else if (sign == "*") {
@@ -107,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         sign = "";
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

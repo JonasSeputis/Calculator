@@ -13,7 +13,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnLongClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,29 +68,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
         @OnClick(R.id.buttonEqual)
-    void Equal(Button button) {
+    public void Equal(Button button) {
         editText.append(button.getText());
-        String example = editText.getText().toString();
-        editText.append(Double.toString(firstValue() + secondValue()));
+            if(sign.equals("+")) {
+                editText.append(Double.toString(firstValue() + secondValue()));
+            } else if (sign.equals("-")) {
+                editText.setText(Double.toString(firstValue() - secondValue()));
+            } else if (sign.equals("*")) {
+                editText.setText(Double.toString(firstValue() * secondValue()));
+            } else if (sign.equals("/")) {
+                if (secondValue() == 0) {
+                    editText.setText(R.string.illegal_argument_exeption);
+            } else {
+                editText.setText(Double.toString(firstValue() / secondValue()));
+            }
+        }
     }
-
-    /*@OnClick(R.id.buttonEqual)
-    void Equal(Button button) {
-        editText.append(button.getText());
-        String example = editText.getText().toString();
-        if(sign == "+") {
-            editText.append(Double.toString(firstValue() + secondValue()));
-        }
-        else if(sign == "-") {
-            editText.append(Double.toString(firstValue() - secondValue()));
-        }
-        else if(sign == "*"){
-            editText.append(Double.toString(firstValue() * secondValue()));
-        }
-        else if(sign == "/"){
-            editText.append(Double.toString(firstValue() / secondValue()));
-        }
-    }*/
 
     public Double firstValue() {
         String writtenText = editText.getText().toString();
@@ -109,8 +101,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
         ButterKnife.bind(this);
     }
 }

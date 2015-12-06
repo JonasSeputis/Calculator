@@ -35,14 +35,14 @@
         android:layout_below="@+id/layout1">
 
         <Button
-            android:id="@+id/buttonC"
+            android:id="@+id/button_c"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:text="@string/erase"
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/buttonDeleteLastSymbol"
+            android:id="@+id/button_delete_last_symbol"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:text="@string/delete"
@@ -50,7 +50,7 @@
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/buttonMultiplication"
+            android:id="@+id/button_multiplication"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:text="@string/multiplication"
@@ -166,7 +166,7 @@
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/buttonDot"
+            android:id="@+id/button_dot"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layoutDirection="inherit"
@@ -182,7 +182,7 @@
         android:layout_toRightOf="@id/linearLayout1">
 
         <Button
-            android:id="@+id/buttonDivision"
+            android:id="@+id/button_division"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layoutDirection="inherit"
@@ -192,7 +192,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/buttonSubtraction"
+        android:id="@+id/button_subtraction"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_below="@+id/linearLayout1"
@@ -201,7 +201,7 @@
         android:textSize="30sp" />
 
     <Button
-        android:id="@+id/buttonEqual"
+        android:id="@+id/button_equal"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_below="@+id/linearLayout2"
@@ -209,7 +209,7 @@
         android:text="@string/equal"
         android:textSize="30sp" />
     <Button
-        android:id="@+id/buttonPlus"
+        android:id="@+id/button_plus"
         android:layout_width="80dp"
         android:layout_height="160dp"
         android:layout_below="@+id/linearLayout3"

@@ -2,8 +2,6 @@ package com.example.john.calculator;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,49 +15,35 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
 
     @Bind({R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7, R.id.button8,
-            R.id.button9, R.id.buttonDot, R.id.buttonC, R.id.buttonDeleteLastSymbol, R.id.buttonMultiplication, R.id.buttonDivision, R.id.buttonSubtraction, R.id.buttonEqual})
+            R.id.button9, R.id.button_dot, R.id.button_c, R.id.button_delete_last_symbol, R.id.button_multiplication, R.id.button_division, R.id.button_subtraction, R.id.button_equal})
     List<Button> button;
     @Bind(R.id.editText1)
     EditText editText;
 
     public String sign = "";
-    //public Double mathDouble, mathDouble2;
-
-    static final ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
-        @Override
-        public void apply(View view, int index) {
-            view.setEnabled(false);
-        }
-    };
-    static final ButterKnife.Setter<View, Boolean> ENABLED = new ButterKnife.Setter<View, Boolean>() {
-        @Override
-        public void set(View view, Boolean value, int index) {
-            view.setEnabled(value);
-        }
-    };
 
     //Buttons 0-9
     @OnClick({R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7, R.id.button8,
-            R.id.button9, R.id.buttonDot})
+            R.id.button9, R.id.button_dot})
     void inputValue(Button button) {
         editText.append(button.getText());
     }
 
-    @OnClick({R.id.buttonPlus, R.id.buttonSubtraction, R.id.buttonDivision, R.id.buttonMultiplication})
+    //Buttons plus, substraction, division, multiplication
+    @OnClick({R.id.button_plus, R.id.button_subtraction, R.id.button_division, R.id.button_multiplication})
     void inputSign(Button button) {
         sign = button.getText().toString();
         editText.append(sign);
     }
 
-
-
-    //Buttons Equal, CE and C
-    @OnClick(R.id.buttonC)
+    //Buttons C
+    @OnClick(R.id.button_c)
     void deleteText() {
         editText.setText(String.valueOf(""));
     }
 
-    @OnClick(R.id.buttonDeleteLastSymbol)
+    //Buttons ←
+    @OnClick(R.id.button_delete_last_symbol)
     void deleteLastSymbol() {
         if (editText.getText().toString().length() > 0) {
             editText.setText(editText.getText().toString().substring(0, editText.getText().toString().length() - 1));
@@ -67,18 +51,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-        @OnClick(R.id.buttonEqual)
+    //Buttons Equal
+    @OnClick(R.id.button_equal)
     public void Equal(Button button) {
         editText.append(button.getText());
-            if(sign.equals("+")) {
-                editText.append(Double.toString(firstValue() + secondValue()));
-            } else if (sign.equals("-")) {
-                editText.setText(Double.toString(firstValue() - secondValue()));
-            } else if (sign.equals("*")) {
-                editText.setText(Double.toString(firstValue() * secondValue()));
-            } else if (sign.equals("/")) {
-                if (secondValue() == 0) {
-                    editText.setText(R.string.illegal_argument_exeption);
+        if (sign.equals("+")) {
+            editText.append(Double.toString(firstValue() + secondValue()));
+        } else if (sign.equals("-")) {
+            editText.setText(Double.toString(firstValue() - secondValue()));
+        } else if (sign.equals("*")) {
+            editText.setText(Double.toString(firstValue() * secondValue()));
+        } else if (sign.equals("/")) {
+            if (secondValue() == 0) {
+                editText.setText(R.string.illegal_argument_exeption);
             } else {
                 editText.setText(Double.toString(firstValue() / secondValue()));
             }
@@ -97,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         String secondValue = writtenText.substring(writtenText.indexOf(sign) + 1, writtenText.indexOf("="));
         return Double.parseDouble(secondValue);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

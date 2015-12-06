@@ -13,6 +13,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editText;
 
     public String sign = "";
-    public Double mathDouble, mathDouble2;
+    //public Double mathDouble, mathDouble2;
 
     static final ButterKnife.Action<View> DISABLE = new ButterKnife.Action<View>() {
         @Override
@@ -51,39 +52,59 @@ public class MainActivity extends AppCompatActivity {
         editText.append(sign);
     }
 
-    public Double FirstValue() {
-        String writtenText = editText.getText().toString();
-        String firstValue = writtenText.substring(0, writtenText.indexOf("+"));
 
-        return mathDouble = Double.parseDouble(firstValue);
-    }
-
-    Double SecondValue() {
-        String writtenText = editText.getText().toString();
-        String secondValue = writtenText.substring(writtenText.indexOf("+") + 1, writtenText.charAt(writtenText.length() - 1));
-        return mathDouble2 = Double.parseDouble(secondValue);
-    }
 
     //Buttons Equal, CE and C
     @OnClick(R.id.buttonC)
-    void WriteLeftBracket() {
+    void deleteText() {
         editText.setText(String.valueOf(""));
     }
 
     @OnClick(R.id.buttonDeleteLastSymbol)
-    void WriteRightBracket() {
+    void deleteLastSymbol() {
         if (editText.getText().toString().length() > 0) {
             editText.setText(editText.getText().toString().substring(0, editText.getText().toString().length() - 1));
             editText.setSelection(editText.getText().length());
         }
     }
 
-    @OnClick(R.id.buttonEqual)
+        @OnClick(R.id.buttonEqual)
     void Equal(Button button) {
         editText.append(button.getText());
-        editText.setText(Double.toString(mathDouble + mathDouble2));
+        String example = editText.getText().toString();
+        editText.append(Double.toString(firstValue() + secondValue()));
     }
 
+    /*@OnClick(R.id.buttonEqual)
+    void Equal(Button button) {
+        editText.append(button.getText());
+        String example = editText.getText().toString();
+        if(sign == "+") {
+            editText.append(Double.toString(firstValue() + secondValue()));
+        }
+        else if(sign == "-") {
+            editText.append(Double.toString(firstValue() - secondValue()));
+        }
+        else if(sign == "*"){
+            editText.append(Double.toString(firstValue() * secondValue()));
+        }
+        else if(sign == "/"){
+            editText.append(Double.toString(firstValue() / secondValue()));
+        }
+    }*/
+
+    public Double firstValue() {
+        String writtenText = editText.getText().toString();
+        String firstValue = writtenText.substring(0, writtenText.indexOf(sign));
+
+        return Double.parseDouble(firstValue);
+    }
+
+    public Double secondValue() {
+        String writtenText = editText.getText().toString();
+        String secondValue = writtenText.substring(writtenText.indexOf(sign) + 1, writtenText.indexOf("="));
+        return Double.parseDouble(secondValue);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -58,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
         if (sign.equals("+")) {
             editText.append(Double.toString(firstValue() + secondValue()));
         } else if (sign.equals("-")) {
-            editText.setText(Double.toString(firstValue() - secondValue()));
+            editText.append(Double.toString(firstValue() - secondValue()));
         } else if (sign.equals("*")) {
-            editText.setText(Double.toString(firstValue() * secondValue()));
+            editText.append(Double.toString(firstValue() * secondValue()));
         } else if (sign.equals("/")) {
             if (secondValue() == 0) {
                 editText.setText(R.string.illegal_argument_exeption);
             } else {
-                editText.setText(Double.toString(firstValue() / secondValue()));
+                editText.append(Double.toString(firstValue() / secondValue()));
             }
         }
     }

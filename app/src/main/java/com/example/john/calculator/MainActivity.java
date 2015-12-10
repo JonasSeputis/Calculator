@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick({R.id.button_plus, R.id.button_subtraction, R.id.button_division, R.id.button_multiplication})
     void inputSign(Button button) {
         sign = button.getText().toString();
-        editText.append(sign);
+        editText.append(" " + sign + " ");
     }
 
     //Buttons C
@@ -54,25 +54,39 @@ public class MainActivity extends AppCompatActivity {
     //Buttons Equal
     @OnClick(R.id.button_equal)
     public void Equal(Button button) {
-        editText.append(button.getText());
-        if (sign.equals("+")) {
-            editText.append(Double.toString(firstValue() + secondValue()));
-        } else if (sign.equals("-")) {
-            editText.append(Double.toString(firstValue() - secondValue()));
-        } else if (sign.equals("*")) {
-            editText.append(Double.toString(firstValue() * secondValue()));
-        } else if (sign.equals("/")) {
-            if (secondValue() == 0) {
-                editText.setText(R.string.illegal_argument_exeption);
+        editText.append(" " + button.getText());
+        if (editText.getText().toString().length() != 0)
+            if (editText.getText().toString().substring(0, 1).equals("/") || editText.getText().toString().substring(0, 1).equals("*")) {
+                editText.setText(R.string.illegal_value_exeption);
             } else {
-                editText.append(Double.toString(firstValue() / secondValue()));
+                if (sign.equals("+")) {
+                    editText.append(" " + Double.toString(firstValue() + secondValue()));
+                } else if (sign.equals("-")) {
+                    if (editText.getText().toString().substring(0, 1).equals("-")) {
+                        editText.append(" " + Double.toString(firstValue() + secondValue()));
+                    } else editText.append(" " + Double.toString(firstValue() - secondValue()));
+                } else if (sign.equals("*")) {
+                    editText.append(" " + Double.toString(firstValue() * secondValue()));
+                } else if (sign.equals("/")) {
+                    if (secondValue() == 0) {
+                        editText.setText(R.string.illegal_argument_exeption);
+                    } else {
+                        editText.append(" " + Double.toString(firstValue() / secondValue()));
+                    }
+                }
             }
-        }
     }
 
     public Double firstValue() {
+        String firstValue = null;
         String writtenText = editText.getText().toString();
-        String firstValue = writtenText.substring(0, writtenText.indexOf(sign));
+        if (writtenText.substring(0, 1).equals(sign)) {
+            if (writtenText.substring(0, 1).equals("+")) {
+                firstValue = writtenText.substring(0, writtenText.indexOf(sign));
+            } else if (writtenText.substring(0, 1).equals("-")) {
+                firstValue = ("-" + writtenText.substring(1, writtenText.indexOf(sign)));
+            }
+        } else firstValue = writtenText.substring(0, writtenText.indexOf(sign));
 
         return Double.parseDouble(firstValue);
     }
